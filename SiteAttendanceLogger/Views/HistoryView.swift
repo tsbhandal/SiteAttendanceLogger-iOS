@@ -8,35 +8,9 @@ struct HistoryView: View {
         NavigationStack {
             Group {
                 if store.records.isEmpty {
-                    ContentUnavailableView(
-                        "No Records",
-                        systemImage: "tray",
-                        description: Text("Your attendance history will appear here.")
-                    )
+                    emptyState
                 } else {
-                    List {
-                        ForEach(store.records) { record in
-                            HStack(spacing: 12) {
-                                Circle()
-                                    .fill(.blue)
-                                    .frame(width: 8, height: 8)
-
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(record.siteName)
-                                        .font(.body)
-                                        .fontWeight(.medium)
-
-                                    Text(record.timestamp, style: .date) +
-                                    Text(" · ") +
-                                    Text(record.timestamp, style: .time)
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                            .padding(.vertical, 4)
-                        }
-                    }
-                    .listStyle(.insetGrouped)
+                    recordsList
                 }
             }
             .navigationTitle("History")
@@ -60,5 +34,39 @@ struct HistoryView: View {
                 Text("This will permanently delete all attendance records.")
             }
         }
+    }
+
+    private var emptyState: some View {
+        ContentUnavailableView(
+            "No Records",
+            systemImage: "tray",
+            description: Text("Your attendance history will appear here.")
+        )
+    }
+
+    private var recordsList: some View {
+        List {
+            ForEach(store.records) { record in
+                HStack(spacing: 12) {
+                    Circle()
+                        .fill(.blue)
+                        .frame(width: 8, height: 8)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(record.siteName)
+                            .font(.body)
+                            .fontWeight(.medium)
+                        HStack(spacing: 0) {
+                            Text(record.timestamp, style: .date)
+                            Text(" · ")
+                            Text(record.timestamp, style: .time)
+                        }
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    }
+                }
+                .padding(.vertical, 4)
+            }
+        }
+        .listStyle(.insetGrouped)
     }
 }

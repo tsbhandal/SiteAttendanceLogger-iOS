@@ -88,11 +88,26 @@ struct ContentView: View {
                 // Recent visits list
                 if store.records.isEmpty {
                     Spacer()
-                    ContentUnavailableView(
-                        "No Visits Yet",
-                        systemImage: "clock",
-                        description: Text("Tap \"Log Visit\" to record your first attendance.")
-                    )
+                    if #available(iOS 17.0, *) {
+                        ContentUnavailableView(
+                            "No Visits Yet",
+                            systemImage: "clock",
+                            description: Text("Tap \"Log Visit\" to record your first attendance.")
+                        )
+                    } else {
+                        VStack(spacing: 8) {
+                            Image(systemName: "clock")
+                                .font(.system(size: 36))
+                                .foregroundColor(.secondary)
+                            Text("No Visits Yet")
+                                .font(.headline)
+                            Text("Tap \"Log Visit\" to record your first attendance.")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
+                        .padding(.horizontal, 40)
+                    }
                     Spacer()
                 } else {
                     List {
