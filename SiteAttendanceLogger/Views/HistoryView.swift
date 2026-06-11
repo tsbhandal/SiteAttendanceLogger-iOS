@@ -37,11 +37,26 @@ struct HistoryView: View {
     }
 
     private var emptyState: some View {
-        ContentUnavailableView(
-            "No Records",
-            systemImage: "tray",
-            description: Text("Your attendance history will appear here.")
-        )
+        if #available(iOS 17.0, *) {
+            ContentUnavailableView(
+                "No Records",
+                systemImage: "tray",
+                description: Text("Your attendance history will appear here.")
+            )
+        } else {
+            VStack(spacing: 8) {
+                Image(systemName: "tray")
+                    .font(.system(size: 36))
+                    .foregroundColor(.secondary)
+                Text("No Records")
+                    .font(.headline)
+                Text("Your attendance history will appear here.")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.horizontal, 40)
+        }
     }
 
     private var recordsList: some View {
