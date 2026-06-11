@@ -36,6 +36,7 @@ struct HistoryView: View {
         }
     }
 
+    @ViewBuilder
     private var emptyState: some View {
         if #available(iOS 17.0, *) {
             ContentUnavailableView(
