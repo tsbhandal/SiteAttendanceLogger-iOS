@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
     <key>method</key>
-    <string>development</string>
+    <string>debug</string>
     <key>teamID</key>
-    <string></string>
+    <string>0000000000</string>
     <key>signingStyle</key>
-    <string>automatic</string>
-    <key>uploadBitcode</key>
-    <false/>
-    <key>compileBitcode</key>
-    <false/>
+    <string>manual</string>
+    <key>signingCertificate</key>
+    <string>-</string>
+    <key>provisioningProfiles</key>
+    <dict/>
 </dict>
 </plist>
